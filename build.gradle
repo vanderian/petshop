@@ -1,0 +1,44 @@
+plugins {
+    id 'org.springframework.boot' version '2.2.5.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    id 'java'
+}
+
+group = 'com.vanderian'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+    developmentOnly
+    runtimeClasspath {
+        extendsFrom developmentOnly
+    }
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+    implementation sk.vanderian.deps.Dependencies.Libs.springDataRest
+    implementation sk.vanderian.deps.Dependencies.Libs.springDataJpa
+    implementation sk.vanderian.deps.Dependencies.Libs.springBootWeb
+    runtimeOnly sk.vanderian.deps.Dependencies.Libs.h2
+
+    compileOnly sk.vanderian.deps.Dependencies.Libs.lombok
+    annotationProcessor sk.vanderian.deps.Dependencies.Libs.lombok
+
+    developmentOnly sk.vanderian.deps.Dependencies.Libs.springBootDev
+
+    testImplementation(sk.vanderian.deps.Dependencies.TestLibs.springBootTest) {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
