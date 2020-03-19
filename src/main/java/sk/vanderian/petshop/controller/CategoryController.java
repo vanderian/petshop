@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import sk.vanderian.petshop.dto.CategoryCreate;
 import sk.vanderian.petshop.dto.CategoryResponse;
@@ -27,7 +28,7 @@ public class CategoryController {
     @PostMapping()
     @PreAuthorize("hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
-    public void save(@RequestBody CategoryCreate categoryCreate) {
+    public void save(@Validated @RequestBody CategoryCreate categoryCreate) {
         Category entity = modelMapper.map(categoryCreate, Category.class);
         categoryRepository.save(entity);
     }

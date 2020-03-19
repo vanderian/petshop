@@ -6,10 +6,7 @@ import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 import sk.vanderian.petshop.entity.Category;
 
-import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.util.List;
 

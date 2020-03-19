@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import sk.vanderian.petshop.dto.OrderCreate;
 import sk.vanderian.petshop.dto.OrderResponse;
@@ -41,7 +42,7 @@ public class OrderController {
     @PostMapping()
     @PreAuthorize("hasRole('USER')")
     @ResponseStatus(HttpStatus.CREATED)
-    public void save(@RequestBody OrderCreate orderCreate, Principal principal) {
+    public void save(@Validated @RequestBody OrderCreate orderCreate, Principal principal) {
         AppUser user = userRepository.findByUsername(principal.getName()).orElseThrow();
 
         Set<OrderItem> orders = orderCreate.getOrders().stream().map(o -> {
