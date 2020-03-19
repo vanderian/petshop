@@ -4,6 +4,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import sk.vanderian.petshop.dto.OrderCreate;
 import sk.vanderian.petshop.dto.OrderResponse;
@@ -31,6 +33,8 @@ public class OrderController {
     ModelMapper mapper;
 
     @PostMapping()
+    @PreAuthorize("hasRole('USER')")
+    @ResponseStatus(HttpStatus.CREATED)
     public void save(@RequestBody OrderCreate orderCreate) {
         Set<OrderItem> orders = orderCreate.getOrders().stream().map(o -> {
             Product product = productRepository.findById(o.getProductId()).orElseThrow();
@@ -47,7 +51,14 @@ public class OrderController {
         ordersRepository.save(order);
     }
 
+    @GetMapping(path = "/me")
+    @PreAuthorize("hasRole('USER')")
+    public Page<OrderResponse> findAllPerUser(Pageable pageable) {
+        return ordersRepository.findAll(pageable).map(o -> mapper.map(o, OrderResponse.class));
+    }
+
     @GetMapping()
+    @PreAuthorize("hasRole('ADMIN')")
     public Page<OrderResponse> findAll(Pageable pageable) {
         return ordersRepository.findAll(pageable).map(o -> mapper.map(o, OrderResponse.class));
     }

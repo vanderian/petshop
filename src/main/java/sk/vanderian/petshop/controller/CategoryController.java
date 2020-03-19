@@ -3,6 +3,7 @@ package sk.vanderian.petshop.controller;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import sk.vanderian.petshop.dto.CategoryCreate;
 import sk.vanderian.petshop.dto.CategoryResponse;
@@ -24,6 +25,7 @@ public class CategoryController {
     ModelMapper modelMapper;
 
     @PostMapping()
+    @PreAuthorize("hasRole('ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
     public void save(@RequestBody CategoryCreate categoryCreate) {
         Category entity = modelMapper.map(categoryCreate, Category.class);
@@ -31,6 +33,7 @@ public class CategoryController {
     }
 
     @GetMapping()
+    @PreAuthorize("hasRole('ADMIN')")
     public List<CategoryResponse> findAll() {
         return StreamSupport.stream(categoryRepository.findAll().spliterator(), false)
                 .map(category -> new CategoryResponse(category.getId(), category.getName()))

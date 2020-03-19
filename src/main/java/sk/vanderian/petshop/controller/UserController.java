@@ -1,26 +1,45 @@
 package sk.vanderian.petshop.controller;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
-import sk.vanderian.petshop.repository.ProductRepository;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+import sk.vanderian.petshop.dto.UserRegister;
+import sk.vanderian.petshop.entity.AppUser;
+import sk.vanderian.petshop.entity.Role;
+import sk.vanderian.petshop.entity.Roles;
+import sk.vanderian.petshop.repository.RoleRepository;
 import sk.vanderian.petshop.repository.UserRepository;
+import sk.vanderian.petshop.security.SecurityConstants;
+
+import java.util.Set;
 
 @RestController
-@RequestMapping(path = "/user")
+@RequestMapping()
 public class UserController {
 
     @Autowired
     UserRepository userRepository;
 
-    @PostMapping(path = "/login")
-    public void login() {
-    }
+    @Autowired
+    RoleRepository roleRepository;
 
-    @PostMapping(path = "/register")
-    public void register() {
+    @Autowired
+    BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
+    ModelMapper mapper;
+
+    @PostMapping(path = SecurityConstants.SIGN_UP_URL)
+    @ResponseStatus(HttpStatus.CREATED)
+    public void register(@Validated @RequestBody UserRegister userRegister) {
+        Role role = roleRepository.findByName(Roles.ROLE_USER).orElseThrow();
+        AppUser appUser = mapper.map(userRegister, AppUser.class);
+        appUser.setPassword(bCryptPasswordEncoder.encode(appUser.getPassword()));
+        appUser.setRoles(Set.of(role));
+        userRepository.save(appUser);
     }
 
 }

@@ -31,9 +31,11 @@ dependencies {
 
     implementation Libs.springDataJpa
     implementation Libs.springBootWeb
+    implementation Libs.springBootSecurity
     implementation Libs.openApi
     implementation Libs.openApiRest
     implementation Libs.modelMapper
+    implementation Libs.auth0Jwt
     runtimeOnly Libs.h2
 
     compileOnly Libs.lombok

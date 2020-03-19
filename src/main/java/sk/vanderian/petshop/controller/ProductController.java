@@ -3,7 +3,10 @@ package sk.vanderian.petshop.controller;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import sk.vanderian.petshop.dto.ProductCreate;
 import sk.vanderian.petshop.dto.ProductDetail;
@@ -30,6 +33,8 @@ public class ProductController {
     ModelMapper mapper;
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasRole('ADMIN')")
     public void save(@RequestBody ProductCreate product) {
         Product entity = mapper.map(product, Product.class);
         productRepository.save(entity);
