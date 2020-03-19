@@ -1,7 +1,7 @@
 package sk.vanderian.petshop.service;
 
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import sk.vanderian.petshop.dto.UserDto;
@@ -14,19 +14,13 @@ import sk.vanderian.petshop.repository.UserRepository;
 import java.util.Set;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
 
-    @Autowired
-    UserRepository userRepository;
-
-    @Autowired
-    RoleRepository roleRepository;
-
-    @Autowired
-    BCryptPasswordEncoder bCryptPasswordEncoder;
-
-    @Autowired
-    ModelMapper mapper;
+    private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final ModelMapper mapper;
 
     public void createUser(UserDto userDto) {
         create(userDto, Roles.ROLE_USER);

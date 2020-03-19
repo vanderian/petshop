@@ -1,5 +1,6 @@
 package sk.vanderian.petshop.service;
 
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,19 +22,13 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class OrderService {
 
-    @Autowired
-    OrdersRepository ordersRepository;
-
-    @Autowired
-    ProductRepository productRepository;
-
-    @Autowired
-    UserRepository userRepository;
-
-    @Autowired
-    ModelMapper mapper;
+    private final OrdersRepository ordersRepository;
+    private final ProductRepository productRepository;
+    private final UserRepository userRepository;
+    private final ModelMapper mapper;
 
     public void create(OrderCreate orderCreate, String username) {
         AppUser user = userRepository.findByUsername(username).orElseThrow();

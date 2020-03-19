@@ -1,5 +1,6 @@
 package sk.vanderian.petshop.service;
 
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,13 +18,11 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @Service
+@RequiredArgsConstructor
 public class CategoryService {
 
-    @Autowired
-    CategoryRepository categoryRepository;
-
-    @Autowired
-    ModelMapper modelMapper;
+    private final CategoryRepository categoryRepository;
+    private final ModelMapper modelMapper;
 
     public void create(CategoryCreate categoryCreate) {
         Category entity = modelMapper.map(categoryCreate, Category.class);

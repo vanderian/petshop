@@ -1,5 +1,6 @@
 package sk.vanderian.petshop.service;
 
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,13 +14,11 @@ import sk.vanderian.petshop.entity.Product;
 import sk.vanderian.petshop.repository.ProductRepository;
 
 @Service
+@RequiredArgsConstructor
 public class ProductService {
 
-    @Autowired
-    ProductRepository productRepository;
-
-    @Autowired
-    ModelMapper mapper;
+    private final ProductRepository productRepository;
+    private final ModelMapper mapper;
 
     public void create(ProductCreate product) {
         Product entity = mapper.map(product, Product.class);

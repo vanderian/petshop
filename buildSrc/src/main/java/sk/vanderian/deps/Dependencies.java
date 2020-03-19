@@ -36,5 +36,6 @@ public final class Dependencies {
 
     public static final class TestLibs {
         public static final String springBootTest = "org.springframework.boot:spring-boot-starter-test";
+        public static final String springSecurityTest = "org.springframework.security:spring-security-test";
     }
 }
