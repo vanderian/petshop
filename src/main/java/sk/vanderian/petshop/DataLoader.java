@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
+import sk.vanderian.petshop.dto.UserDto;
 import sk.vanderian.petshop.entity.AppUser;
 import sk.vanderian.petshop.entity.Category;
 import sk.vanderian.petshop.entity.Role;
@@ -11,6 +12,7 @@ import sk.vanderian.petshop.entity.Roles;
 import sk.vanderian.petshop.repository.CategoryRepository;
 import sk.vanderian.petshop.repository.RoleRepository;
 import sk.vanderian.petshop.repository.UserRepository;
+import sk.vanderian.petshop.service.UserService;
 
 import java.util.Arrays;
 import java.util.List;
@@ -25,7 +27,7 @@ public class DataLoader implements ApplicationRunner {
     CategoryRepository categoryRepository;
 
     @Autowired
-    UserRepository userRepository;
+    UserService userService;
 
     @Autowired
     RoleRepository roleRepository;
@@ -44,14 +46,11 @@ public class DataLoader implements ApplicationRunner {
     }
 
     private void seedAdmin() {
-        Role role = roleRepository.findByName(Roles.ROLE_ADMIN).orElseThrow();
-        AppUser user = new AppUser();
+        UserDto user = new UserDto();
         user.setUsername("admin");
         user.setPassword("admin");
         user.setEmail("admin@admin.com");
-        user.setRoles(Set.of(role));
-
-        userRepository.save(user);
+        userService.create(user, Roles.ROLE_ADMIN);
     }
 
     private void seedCategories() {

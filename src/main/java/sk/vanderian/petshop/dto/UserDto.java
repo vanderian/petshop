@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
-public class UserRegister {
+public class UserDto {
 
     @NotNull
     @NotEmpty

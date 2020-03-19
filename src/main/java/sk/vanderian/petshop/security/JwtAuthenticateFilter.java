@@ -9,7 +9,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import sk.vanderian.petshop.dto.JwtResponse;
-import sk.vanderian.petshop.dto.UserRegister;
+import sk.vanderian.petshop.dto.UserDto;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -37,7 +37,7 @@ public class JwtAuthenticateFilter extends UsernamePasswordAuthenticationFilter 
     ) throws AuthenticationException {
 
         try {
-            UserRegister creds = new ObjectMapper().readValue(req.getInputStream(), UserRegister.class);
+            UserDto creds = new ObjectMapper().readValue(req.getInputStream(), UserDto.class);
 
             return authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
