@@ -31,10 +31,10 @@ dependencies {
 
     implementation Libs.springDataJpa
     implementation Libs.springBootWeb
+    implementation Libs.openApi
+    implementation Libs.openApiRest
+    implementation Libs.modelMapper
     runtimeOnly Libs.h2
-
-    implementation Libs.swagger
-    implementation Libs.swaggerUi
 
     compileOnly Libs.lombok
     annotationProcessor Libs.lombok

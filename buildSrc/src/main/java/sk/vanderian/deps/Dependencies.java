@@ -11,7 +11,8 @@ public final class Dependencies {
     public static final class Versions {
         public static final String spring = "2.2.5.RELEASE";
         public static final String springDM = "1.0.9.RELEASE";
-        public static final String springfox = ":3.0.0-SNAPSHOT";
+        public static final String openApi = ":1.2.33";
+        public static final String modelMapper = ":2.3.6";
     }
 
     public static final class GradlePlugins {
@@ -25,9 +26,9 @@ public final class Dependencies {
         public static final String springBootDev = "org.springframework.boot:spring-boot-devtools";
         public static final String h2 = "com.h2database:h2";
         public static final String lombok = "org.projectlombok:lombok";
-        public static final String swagger = "io.springfox:springfox-swagger2" + Versions.springfox;
-        public static final String swaggerDataRest = "io.springfox:springfox-data-rest" + Versions.springfox;
-        public static final String swaggerUi = "io.springfox:springfox-swagger-ui" + Versions.springfox;
+        public static final String openApi = "org.springdoc:springdoc-openapi-ui" + Versions.openApi;
+        public static final String openApiRest = "org.springdoc:springdoc-openapi-data-rest" + Versions.openApi;
+        public static final String modelMapper = "org.modelmapper:modelmapper" + Versions.modelMapper;
     }
 
     public static final class TestLibs {

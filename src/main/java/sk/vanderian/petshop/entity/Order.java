@@ -1,23 +1,28 @@
 package sk.vanderian.petshop.entity;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "orders")
-public class Order {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+public class Order extends BaseEntity {
+    @NotNull
+    private BigDecimal price;
 
-    private final BigDecimal price;
-    private final LocalDateTime time;
-
-    @OneToMany
-    private final Set<OrderItem> orders;
+    @NotNull
+    @NotEmpty
+    @OneToMany(cascade = CascadeType.ALL)
+    private Set<OrderItem> orders;
 }
