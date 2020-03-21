@@ -30,3 +30,6 @@ setup required for Azure services (repository, AKS..)
 # builds docker image, pushes to remote repo, deploys psql, deploys api 
 make remote
 ```
+
+### Postman
+project contains a simple collection to interact with API 
