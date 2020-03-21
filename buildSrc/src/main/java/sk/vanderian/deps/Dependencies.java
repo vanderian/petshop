@@ -32,6 +32,7 @@ public final class Dependencies {
         public static final String openApi = "org.springdoc:springdoc-openapi-ui" + Versions.openApi;
         public static final String openApiRest = "org.springdoc:springdoc-openapi-data-rest" + Versions.openApi;
         public static final String modelMapper = "org.modelmapper:modelmapper" + Versions.modelMapper;
+        public static final String psql = "org.postgresql:postgresql";
     }
 
     public static final class TestLibs {

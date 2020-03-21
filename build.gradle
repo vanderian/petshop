@@ -38,6 +38,7 @@ dependencies {
     implementation Libs.modelMapper
     implementation Libs.auth0Jwt
     runtimeOnly Libs.h2
+    runtimeOnly Libs.psql
 
     compileOnly Libs.lombok
     annotationProcessor Libs.lombok
