@@ -2,18 +2,21 @@ version: '3.1'
 services:
   app:
     container_name: petshop-api
-    image: petshop
+    image: petshop-api
     environment:
       - "SPRING_PROFILES_ACTIVE=prod"
+      - "POSTGRES_PASSWORD=adm1n_P455W0RD"
+      - "POSTGRES_USER=admin"
+      - "POSTGRES_HOST=db_psql"
     ports:
       - "8080:8080"
     depends_on:
       - db_psql
   db_psql:
+    container_name: petshop-db
     image: postgres
     ports:
       - "5432:5432"
     environment:
-      - POSTGRES_PASSWORD=password
-      - POSTGRES_USER=postgres
-      - POSTGRES_DB=mydb
+      - "POSTGRES_PASSWORD=adm1n_P455W0RD"
+      - "POSTGRES_USER=admin"
